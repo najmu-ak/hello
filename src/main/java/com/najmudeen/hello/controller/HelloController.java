@@ -1,7 +1,6 @@
 package com.najmudeen.hello.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +21,10 @@ public class HelloController {
     @Autowired
     HelloService helloService;
 
-    // @DeleteMapping("/students/{id}")
-    // public String deleteById(@PathVariable("id") String id) {
-    //     return service.deleteStudent(id);
-    // }
+    @DeleteMapping("/students/{id}")
+    public String deleteById(@PathVariable String id) {
+       return helloService.deleteStudent(id); // Fetch the list of students
+    }
 
     @PutMapping("/students/{id}")
     public String putMethodName(@PathVariable("id") String id, @RequestBody Students students) {

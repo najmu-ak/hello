@@ -26,11 +26,16 @@ public class Students {
     @Column(name = "st_contact", nullable = false)
     private String st_contact;
 
+    @Column(name = "gender", nullable = false)
+    private String gender;
+
     // Constructor for easy object creation
-    public Students(String st_name, String st_id, String st_dept, String st_contact) {
+    public Students(String st_name, String st_id, String st_dept, String st_contact, String gender) {
         this.st_name = st_name;
         this.st_id = st_id;
         this.st_dept = st_dept;
         this.st_contact = st_contact;
+        this.gender = gender;
+
     }
 }

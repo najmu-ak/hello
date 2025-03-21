@@ -1,9 +1,6 @@
 package com.najmudeen.hello.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.najmudeen.hello.entity.Students;
@@ -15,30 +12,13 @@ public class HelloService {
     @Autowired
     StudentRepository studentRepository;
 
-    // List<Students> students = new ArrayList<>(
-    //         Arrays.asList(
-    //                 new Students("Najmudeen", "101", "CSE"),
-    //                 new Students("Ali", "102", "ECE"),
-    //                 new Students("Deen", "103", "EEE"),
-    //                 new Students("Ak", "104", "MECH")));
-
     public List<Students> getStudents() {
-        return studentRepository.findAll(); // Return all students 
+        return studentRepository.findAll(); // Return all students
     }
-
 
     public Students getRollNumber(String id) {
-        return studentRepository.findById(id).orElse(null); 
+        return studentRepository.findById(id).orElse(null);
     }
-    // public Students getRollNumber(String id) {
-    //     for (Students student : Students) {
-    //         if (student.getSt_id().equals(id)) {
-    //             return  Students; // Return the found student
-    //         }
-    //     }
-
-    //     return "Student not found"; // Return the first student if no student found
-    // }
 
     public String addStudent(Students student) {
         studentRepository.save(student);
@@ -46,26 +26,25 @@ public class HelloService {
     }
 
     public String updateStudent(String id, Students updatedStudent) {
-        List<Students> studentList = getStudents();  // Fetch data directly inside the service
+        List<Students> studentList = getStudents(); // Fetch data directly inside the service
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get(i).getSt_id().equals(id)) {
-                studentList.set(i, updatedStudent); //  Correct update logic
+                studentList.set(i, updatedStudent); // Correct update logic
                 studentRepository.save(updatedStudent); // Save the updated student
+                studentRepository.flush(); // Flush the changes to the database
                 return "Student updated successfully";
             }
         }
         return "Student not found";
     }
-    
-    
 
-    // public String deleteStudent(String st_id) {
-    //     for (int i = 0; i < students.size(); i++) {
-    //         if (students.get(i).getSt_id().equals(st_id)) {
-    //             students.remove(i); // Remove the student record
-    //         }
-    //     }
-    //     return "Student deleted successfully";
-
-    // }
+    public String deleteStudent(String id) {
+        if (studentRepository.existsById(id)) {
+            studentRepository.deleteById(id); // Delete the student by ID
+            studentRepository.flush(); // Flush the changes to the database
+            studentRepository.findAll(); // Fetch the updated list of students
+            return "Student deleted successfully";
+        }
+        return "Student not found";
+    }
 }
