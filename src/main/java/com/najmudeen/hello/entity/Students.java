@@ -1,12 +1,36 @@
 package com.najmudeen.hello.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Students {
-    private String st_name;
+
+    @Id
+    @Column(name = "st_id", nullable = false, unique = true)
     private String st_id;
+
+    @Column(name = "st_name", nullable = false)
+    private String st_name;
+
+    @Column(name = "st_dept", nullable = false)
     private String st_dept;
+
+    @Column(name = "st_contact", nullable = false)
+    private String st_contact;
+
+    // Constructor for easy object creation
+    public Students(String st_name, String st_id, String st_dept, String st_contact) {
+        this.st_name = st_name;
+        this.st_id = st_id;
+        this.st_dept = st_dept;
+        this.st_contact = st_contact;
+    }
 }

@@ -20,31 +20,31 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class HelloController {
 
     @Autowired
-    HelloService service;
+    HelloService helloService;
 
-    @DeleteMapping("/students/{id}")
-    public String deleteById(@PathVariable("id") String id) {
-        return service.deleteStudent(id);
-    }
+    // @DeleteMapping("/students/{id}")
+    // public String deleteById(@PathVariable("id") String id) {
+    //     return service.deleteStudent(id);
+    // }
 
     @PutMapping("/students/{id}")
     public String putMethodName(@PathVariable("id") String id, @RequestBody Students students) {
-        return service.Update(id, students);
+        return helloService.updateStudent(id, students);  //  No need to pass studentList here
     }
+    
 
     @PostMapping("/students")
-    public String addStudent(@RequestBody Students student) {
-        return service.addStudent(student);
+    public String addStudent(@RequestBody Students students) {
+        return helloService.addStudent(students);
     }
 
     @GetMapping("/students")
     public List<Students> getStudents() {
-        return service.getStudents();
+        return helloService.getStudents();
     }
 
     @GetMapping("/students/{id}")
-    public Students getRollNumber(@PathVariable("id") String id) {
-        return service.getRollNumber(id);
+    public Students getRollNumber(@PathVariable("id") String st_id) {
+        return helloService.getRollNumber(st_id);
     }
-
 }
